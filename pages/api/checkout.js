@@ -14,8 +14,8 @@ export default async function handler(req, res) {
 				},
 			],
 			mode: "payment",
-			success_url: `http://localhost:3000/product/${req.query.product}/?success=true`,
-			cancel_url: `http://localhost:3000/?canceled=true`,
+			success_url: `https://web-d18qxmek9-rodrigoscola.vercel.app/product/${req.query.product}/?success=true`,
+			cancel_url: `https://web-d18qxmek9-rodrigoscola.vercel.app/?canceled=true`,
 		})
 		res.redirect(303, session.url)
 		res.send(req.query)
