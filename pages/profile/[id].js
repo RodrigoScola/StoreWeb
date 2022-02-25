@@ -50,6 +50,7 @@ export default function ProfilePage({ userInfo, products, file }) {
 	)
 }
 export async function getStaticProps({ params }) {
+	console.log(params)
 	const { id } = params
 	let userInfo = await user.getUser(id)
 
@@ -61,7 +62,7 @@ export async function getStaticProps({ params }) {
 		props: {
 			file,
 			userInfo,
-			products: products,
+			products,
 		},
 	}
 }

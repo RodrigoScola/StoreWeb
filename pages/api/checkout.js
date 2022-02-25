@@ -1,6 +1,6 @@
 const stripe = require("stripe")(
 	// this is a public key
-	"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"
+	process.env.STRIPE_SECRET
 )
 
 export default async function handler(req, res) {
