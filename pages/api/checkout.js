@@ -18,6 +18,7 @@ export default async function handler(req, res) {
 			cancel_url: `https://web-d18qxmek9-rodrigoscola.vercel.app/?canceled=true`,
 		})
 		res.redirect(303, session.url)
+		console.log(session)
 		res.send(req.query)
 	} catch (err) {
 		res.status(err.statusCode || 500).json(err.message)
