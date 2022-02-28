@@ -1,5 +1,4 @@
 const stripe = require("stripe")(
-	// this is a public key
 	"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"
 )
 
@@ -14,13 +13,14 @@ export default async function handler(req, res) {
 				},
 			],
 			mode: "payment",
-			success_url: `https://web-d18qxmek9-rodrigoscola.vercel.app/product/${req.query.product}/?success=true`,
-			cancel_url: `https://web-d18qxmek9-rodrigoscola.vercel.app/?canceled=true`,
+			success_url: "https://stripe.com/docs/error-handling",
+			cancel_url: `https://www.codecademy.com/learn`,
 		})
-		res.redirect(303, session.url)
+		// res.redirect(303, session.url)
 		console.log(session)
 		res.send(req.query)
 	} catch (err) {
+		console.log(err)
 		res.status(err.statusCode || 500).json(err.message)
 	}
 }
