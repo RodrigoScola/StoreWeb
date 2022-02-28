@@ -39,7 +39,7 @@ export default function CreateAccount() {
 				.then(() => {
 					user.login({ email: res.user.email, password: data.password })
 
-					// router.push(`/profile/${res.user.id}`)
+					router.push(`/profile/${res.user.id}`)
 				})
 		})
 	}

@@ -19,6 +19,7 @@
     "firebase": "^9.6.4",
     "formik": "^2.2.9",
     "framer-motion": "^5.5.7",
+    "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
     "multiparty": "^4.2.3",
     "next": "^12.1.0",
