@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import { DeleteProduct } from "../../Components/products/DeleteProduct"
 import { BuyProduct } from "../../Components/products/buyProduct"
 import { useRouter } from "next/router"
-import BuyStripe from "../../Components/products/buyStripe"
 const string = require("lodash/string")
 const { getFromId } = require("../../utils/Product")
 export default function ProfilePage({ product, file, userInfo, otherProducts, stripe }) {
@@ -39,7 +38,6 @@ export default function ProfilePage({ product, file, userInfo, otherProducts, st
 				<Text>{`${string.capitalize(userInfo.firstName)} ${string.capitalize(userInfo.lastName)}`}</Text>
 				<Text>{userInfo.email}</Text>
 			</Box>
-			{/* <BuyStripe id={stripe.id} product={product.id} /> */}
 			<BuyProduct productId={stripe.id} product={product.id} />
 			<Box>
 				<Text>Products from the same user that you might like </Text>
@@ -55,16 +53,14 @@ export async function getStaticProps({ params }) {
 	let { product, stripe: stripe } = await server.fetchData("products/id", { id }).then(res => {
 		return { product: res.product, stripe: res.stripe }
 	})
-	if (!product)
-		return {
-			props: {},
-		}
+
 	product = JSON.parse(product)
 	stripe = JSON.parse(stripe)
-	console.log(stripe)
 	const newUser = new User()
 	const file = await server.getFile(product)
+	console.log(product)
 	const userInfo = await newUser.getUser(product.userId)
+	console.log(userInfo)
 	const otherProducts = await getFromId(product.userId, product.id)
 	return {
 		props: {

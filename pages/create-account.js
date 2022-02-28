@@ -29,7 +29,7 @@ export default function CreateAccount() {
 		e.preventDefault()
 		if (!passwordMatch()) return
 		server.createUser(data).then(res => {
-			// storage.addCookie("userid", res.user.id)
+			storage.addCookie("userid", res.user.id)
 			console.log(res.user.id)
 			server
 				.uploadFile(image, res.user.id, "profilePicture")

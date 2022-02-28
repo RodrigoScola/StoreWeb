@@ -14,8 +14,8 @@ export default function ProfilePage({ id }) {
 	let [userId, value] = useUserInfo()
 	const [data, setData] = useState({})
 
-	useEffect(() => {
-		async function fetchData() {
+	useEffect(async () => {
+		if (id) {
 			let userInfo = await user.getUser(id)
 			let products = await getProduct()
 			const file = await server.getFile({
@@ -27,8 +27,7 @@ export default function ProfilePage({ id }) {
 				file,
 			})
 		}
-		fetchData()
-	}, [])
+	}, [id])
 	if (!data.userInfo) return <>user not found</>
 	const name = `${string.capitalize(data.userInfo.firstName)} ${string.capitalize(data.userInfo.lastName)}`
 	let component
