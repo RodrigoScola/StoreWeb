@@ -1,5 +1,5 @@
 const server = require("../../utils/server")
-import { Box, Text, Divider, Image } from "@chakra-ui/react"
+import { Box, Text, Divider, Image, Link } from "@chakra-ui/react"
 import { User } from "../../utils/User"
 import { ProductsComponent } from "../../Components/products/ProductsComponent"
 import useUserInfo from "../../Components/utils/hooks/useUserInfo"
@@ -7,11 +7,11 @@ import { useEffect, useState } from "react"
 import { DeleteProduct } from "../../Components/products/DeleteProduct"
 import { BuyProduct } from "../../Components/products/buyProduct"
 import { useRouter } from "next/router"
+import { BadgesComponent } from "../../Components/products/BadgesComponent"
 const string = require("lodash/string")
 const { getFromId } = require("../../utils/Product")
 export default function ProfilePage({ product, file, userInfo, otherProducts, stripe }) {
 	let [id] = useUserInfo()
-
 	const router = useRouter()
 	useEffect(() => {
 		if (router.query.success) {
@@ -30,12 +30,20 @@ export default function ProfilePage({ product, file, userInfo, otherProducts, st
 			<Image src={file} borderRadius="15px" width={300} alt={product.name} />
 			{/* desc */}
 			<Divider />
+			<br />
+			<BadgesComponent badges={product.badges} />
 			<Text>{product.description}</Text>
 			<Divider />
 			<Text>PRICE: {product.price}</Text>
 			<Box>
 				{id == userInfo.userId ? <DeleteProduct id={product.id} /> : null}
-				<Text>{`${string.capitalize(userInfo.firstName)} ${string.capitalize(userInfo.lastName)}`}</Text>
+				<Text color="lightblue">
+					<Link
+						onClick={() => {
+							router.push(`/profile/${userInfo.userId}`)
+						}}
+					>{`${string.capitalize(userInfo.firstName)} ${string.capitalize(userInfo.lastName)}`}</Link>
+				</Text>
 				<Text>{userInfo.email}</Text>
 			</Box>
 			<BuyProduct productId={stripe.id} product={product.id} />
