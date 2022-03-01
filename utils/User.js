@@ -105,5 +105,5 @@ class User {
 }
 
 const user = new User()
-user.logout()
+// user.logout()
 module.exports = { user, User }
