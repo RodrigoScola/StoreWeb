@@ -25,17 +25,13 @@ export default function CreateAccount() {
 	const [image, setImage] = useState()
 
 	const handleSubmit = e => {
-		console.log(data)
 		e.preventDefault()
 		if (!passwordMatch()) return
 		server.createUser(data).then(res => {
 			storage.addCookie("userid", res.user.id)
-			console.log(res.user.id)
 			server
 				.uploadFile(image, res.user.id, "profilePicture")
-				.then(resolution => {
-					console.log(resolution)
-				})
+				.then(resolution => {})
 				.then(() => {
 					user.login({ email: res.user.email, password: data.password })
 
@@ -48,7 +44,6 @@ export default function CreateAccount() {
 	}
 	const handleChange = e => {
 		setData({ ...data, [e.target.name]: e.target.value })
-		console.log(e.target.name)
 	}
 	const passwordMatch = () => {
 		if (data.password == data.confirmPassword) {

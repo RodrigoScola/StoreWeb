@@ -1,7 +1,7 @@
 const string = require("lodash/string")
 import { Input, Box, VStack } from "@chakra-ui/react"
 export const RenderForm = ({ data, setData }) => {
-	const Width = ["200px", "400px", "600px"]
+	const Width = ["200px", "400px"]
 	const handleChange = e => {
 		setData({ ...data, [e.target.name]: e.target.value })
 		console.log(data.email)

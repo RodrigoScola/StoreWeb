@@ -16,13 +16,11 @@ export default function ProfilePage({ product, file, userInfo, otherProducts, st
 	useEffect(() => {
 		if (router.query.success) {
 			server.sendEmail("purchase", { product, userInfo }).then(res => {
-				console.log(res)
 				router.replace(`/product/${product.id}`)
 			})
 		}
 	}, [])
 	if (!product) return <>product not found</>
-	console.log(id, userInfo)
 	return (
 		<>
 			<Text fontSize="2xl">{string.capitalize(product.name)}</Text>
@@ -66,9 +64,7 @@ export async function getStaticProps({ params }) {
 	stripe = JSON.parse(stripe)
 	const newUser = new User()
 	const file = await server.getFile(product)
-	console.log(product)
 	const userInfo = await newUser.getUser(product.userId)
-	console.log(userInfo)
 	const otherProducts = await getFromId(product.userId, product.id)
 	return {
 		props: {

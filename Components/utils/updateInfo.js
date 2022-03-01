@@ -19,13 +19,18 @@ export const UpdateInfoComponent = () => {
 			})
 		})
 	}, [])
+	console.log(userInfo)
 	const handleSubmit = async () => {
-		console.log("asodf")
 		const updatedUser = await user.alterUser({ newInfo: userInfo })
 	}
 	return (
 		<form onSubmit={handleSubmit}>
-			<WarnAlert handleSubmit={handleSubmit} ButtonText={"alter Info"} HeaderText="Alter your user info">
+			<WarnAlert
+				handleSubmit={handleSubmit}
+				ButtonText={"alter Info"}
+				HeaderText="Alter your user info"
+				ConfirmButton="Confirm"
+			>
 				<RenderForm data={userInfo} setData={setUserInfo} />
 			</WarnAlert>
 		</form>

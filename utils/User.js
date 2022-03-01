@@ -67,6 +67,8 @@ class User {
 	}
 	async alterUser({ newInfo }) {
 		const updatedUser = await server.fetchData("user/update-user", { newInfo })
+		this.userInfo = newInfo
+		storage.setLocalStorage("userInfo", this.userInfo)
 		return updatedUser
 	}
 	async getUser(id = this.userId) {

@@ -1,7 +1,8 @@
 const server = require("../../utils/server")
 import { Avatar, Box, Text, Divider, VStack } from "@chakra-ui/react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { ProductsComponent } from "../../Components/products/ProductsComponent"
+import { useState } from "react"
 import useUserInfo from "../../Components/utils/hooks/useUserInfo"
 import { LogOut } from "../../Components/utils/Logging"
 import NewProductComponent from "../../Components/utils/NewProductComponent"
@@ -9,7 +10,7 @@ import { UpdateInfoComponent } from "../../Components/utils/updateInfo"
 import { WarnAlert } from "../../Components/utils/warning"
 import { user } from "../../utils/User"
 const string = require("lodash/string")
-const { getProduct } = require("../../utils/Product")
+import { getFromId } from "../../utils/Product"
 export default function ProfilePage({ file, products, userInfo, id }) {
 	let [userId, value] = useUserInfo()
 	const [data, setData] = useState({
@@ -32,7 +33,7 @@ export default function ProfilePage({ file, products, userInfo, id }) {
 					</>
 				) : null}
 				<WarnAlert
-					BodyText="this action cannot be undone"
+					BodyText="this action cannot be undone, are you sure that you want to delete your account?"
 					ButtonText="Delete Account"
 					HeaderText="Delete Account"
 					ConfirmButton="Delete"
@@ -52,14 +53,16 @@ export default function ProfilePage({ file, products, userInfo, id }) {
 			</Text>
 			{component}
 			<Divider />
-			{/* <ProductsComponent products={products} /> */}
+			<Text>Products from the same user that you might like </Text>
+			<ProductsComponent products={products} />
 		</Box>
 	)
 }
 export async function getStaticProps({ params }) {
 	const { id } = params
 	let userInfo = await user.getUser(id)
-	let products = await getProduct()
+	let products = await getFromId(id)
+	console.log(products)
 	const file = await server.getFile({
 		userId: id,
 	})

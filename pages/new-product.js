@@ -31,7 +31,6 @@ export default function NewProduct() {
 		console.log(data.category)
 		await server.fetchData("products/create-product", data).then(res => {
 			changeImage({ ...image, productInfo: res })
-			console.log(res)
 			server.uploadFile(image, user.userId, res.id).then(() => {
 				router.push(`/product/${res.id}`)
 			})
@@ -100,7 +99,6 @@ export default function NewProduct() {
 										if (Medals.indexOf(value) == -1) {
 											alterBadge([...Medals, value])
 										}
-										console.log(Medals)
 									}}
 									name={value}
 									id={value}

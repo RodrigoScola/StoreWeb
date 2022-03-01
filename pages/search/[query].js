@@ -4,7 +4,6 @@ import { categories } from "../../constants"
 
 const { getProductsBySearch } = require("../../utils/Product")
 export default function SearchPage({ query }) {
-	console.log(query)
 	if (!query) {
 		return <h1>no product was found</h1>
 	}

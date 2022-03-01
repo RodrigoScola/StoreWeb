@@ -13,15 +13,26 @@ const getProduct = async () => {
 		files,
 	}
 }
-const getFromId = async (id, pId) => {
-	let prod = await server.fetchData("products/getFromId", { id, pId }).then(res => {
-		return JSON.parse(res)
-	})
-	const files = await getFilesfromServer(prod)
-
-	return {
-		prod,
-		files,
+export const getFromId = async (id, pId = null) => {
+	if (pId) {
+		let prod = await server.fetchData("products/getFromId", { id, pId }).then(res => {
+			return JSON.parse(res)
+		})
+		const files = await getFilesfromServer(prod)
+		return {
+			prod,
+			files,
+		}
+	} else {
+		console.log("this has not pid")
+		let prod = await server.fetchData("products/getFromId", { id }).then(res => {
+			return JSON.parse(res)
+		})
+		const files = await getFilesfromServer(prod)
+		return {
+			prod,
+			files,
+		}
 	}
 }
 const getProductsByCategory = async query => {
